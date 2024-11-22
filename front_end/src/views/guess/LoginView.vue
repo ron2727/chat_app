@@ -7,8 +7,8 @@
             <button-submit value="Login" />
         </div>
         <div class="pt-5 flex justify-end text-sm space-x-1">
-            <span>Don't have an account?</span>
-            <router-link to="/register" class="text-blue-500 hover:underline">Register</router-link>
+            <span class="text-gray-700">Don't have an account?</span>
+            <router-link :to="{ name: 'register' }" class="text-blue-500 hover:underline">Register</router-link>
         </div>
     </form>
 </template>
