@@ -1,13 +1,14 @@
 <template>
-    <div>
-        <h1 class=" text-6xl font-bold">Home</h1>
+    <div class=" grid grid-cols-3 gap-4">
+        <CardRoom/>
     </div>
 </template>
 
 <script setup lang="ts">
+import CardRoom from '@/components/icons/CardRoom.vue';
+
+ 
+
 
 </script>
-
-<style scoped>
-
-</style>
+ 

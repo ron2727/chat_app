@@ -2,7 +2,7 @@
     <nav>
         <div class=" w-60 p-5 bg-white h-full border-r border-gray-300">
             <h6 class="logo mb-10 font-bold text-gray-800 text-2xl">Chat App</h6>
-            <ul class=" space-y-4">
+            <ul class=" space-y-4 mb-14">
                 <li>
                     <NavLink :to="{ name: 'home' }">
                         <HomeIcon class="size-8" />
