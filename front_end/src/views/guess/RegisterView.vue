@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import ButtonSubmit from '@/components/forms/ButtonSubmit.vue';
-import InputBase from '@/components/forms/InputBase.vue';
-import TitleForm from '@/components/forms/TitleForm.vue';
+import ButtonSubmit from '@/components/form/ButtonSubmit.vue';
+import InputBase from '@/components/form/InputBase.vue';
+import TitleForm from '@/components/form/TitleForm.vue';
 
 import { ref } from 'vue';
 
