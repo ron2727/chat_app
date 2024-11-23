@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import GuessLayout from '@/layouts/GuessLayout.vue'
 import AuthLayout from '@/layouts/AuthLayout.vue'
 
 const router = createRouter({
@@ -6,8 +7,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'auth-layout',
-      component: AuthLayout,
+      name: 'guess-layout',
+      component: GuessLayout,
       children: [
         {
           path: '',
@@ -21,6 +22,18 @@ const router = createRouter({
         }
       ]
     }, 
+    {
+      path: '/chat',
+      name: 'auth-layout',
+      component: AuthLayout,
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import('../views/auth/HomeView.vue')
+        }
+      ]
+    }
   ],
 })
 
