@@ -1,7 +1,7 @@
 <template>
     <div class="w-screen h-screen flex overflow-hidden">
         <nav-side />
-        <div class="content flex-grow p-10">
+        <div class="content flex-grow">
             <router-view />
         </div>
     </div>

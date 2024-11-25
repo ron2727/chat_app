@@ -1,6 +1,6 @@
 <template>
-    <div class=" grid grid-cols-3 gap-4">
-        <CardRoom/>
+    <div class="p-5 grid grid-cols-3 gap-4">
+        <CardRoom />
     </div>
 </template>
 
