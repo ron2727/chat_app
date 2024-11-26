@@ -8,7 +8,5 @@
 import CardRoom from '@/components/icons/CardRoom.vue';
 
  
-
-
 </script>
  
