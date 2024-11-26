@@ -2,7 +2,9 @@
 </script>
 
 <template>  
-  <RouterView />
+  <Suspense>
+    <router-view />
+  </Suspense>
 </template>
 
 <style>

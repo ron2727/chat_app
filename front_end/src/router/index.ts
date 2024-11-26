@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router' 
 import GuessLayout from '@/layouts/GuessLayout.vue'
 import AuthLayout from '@/layouts/AuthLayout.vue'
 
@@ -25,7 +25,7 @@ const router = createRouter({
     {
       path: '/chat',
       name: 'auth-layout',
-      component: AuthLayout,
+      component: AuthLayout,  
       children: [
         {
           path: '',
@@ -41,5 +41,6 @@ const router = createRouter({
     }
   ],
 })
-
+ 
 export default router
+

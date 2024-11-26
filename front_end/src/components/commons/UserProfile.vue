@@ -12,7 +12,7 @@
 const props = defineProps({
     size: {
       validator(value: string) { 
-         return ['sm', 'md', 'lg'].includes(value)
+         return ['xs', 'sm', 'md', 'lg'].includes(value)
       }
     },
     userName: {

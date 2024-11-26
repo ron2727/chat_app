@@ -8,8 +8,18 @@
 </template>
 
 <script setup lang="ts">
-import NavSide from '@/components/commons/NavSide.vue';
- 
+import NavSide from '@/components/commons/NavSide.vue'; 
+import { useAuthStore } from '@/stores/userAuth';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+await authStore.fetchUser(); 
+
+if (!authStore.isAuthenticated) {
+   router.push({ name: 'login' });
+}
 </script>
 
 <style scoped></style>

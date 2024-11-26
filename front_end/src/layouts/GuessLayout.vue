@@ -7,9 +7,15 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/userAuth';
+import { useRouter } from 'vue-router';
 
-</script>
+const authStore = useAuthStore();
+const router = useRouter();
 
-<style>
+await authStore.fetchUser();
 
-</style>
+if (authStore.isAuthenticated) {
+   router.push({ name: 'home' });
+}
+</script> 
