@@ -46,16 +46,12 @@ const form = ref<{
 })
 const autoResize = () => {  
     if (textarea.value!.scrollHeight <= 136) { 
-       textarea.value!.style.height = 'min';
-       textarea.value!.style.height = textarea.value!.scrollHeight + 'px'; 
+        textarea.value!.style.height = 'min';
+        textarea.value!.style.height = textarea.value!.scrollHeight + 'px'; 
     }
     if (form.value!.message == '') {
        textarea.value!.style.height = '40px';  
     }
      
 };
-</script>
-
-<style scoped>
-
-</style>
+</script> 
