@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import PowerIcon from '../icons/PowerIcon.vue';
-import { useAuthStore } from '@/stores/userAuth';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();

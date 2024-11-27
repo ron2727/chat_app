@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/userAuth';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();

@@ -21,7 +21,7 @@ import InputBase from '@/components/form/InputBase.vue';
 import TitleForm from '@/components/form/TitleForm.vue'; 
 
 import { onMounted, ref } from 'vue';
-import { useAuthStore } from '@/stores/userAuth';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 const authStore = useAuthStore();
 

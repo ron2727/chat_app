@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import NavSide from '@/components/commons/NavSide.vue'; 
-import { useAuthStore } from '@/stores/userAuth';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'vue-router'; 
 
 const authStore = useAuthStore();
@@ -21,10 +21,7 @@ if (!authStore.isAuthenticated) {
    router.push({ name: 'login' });
 }
 
-window.Echo.channel(`chat`)
-    .listen('.send-message', (e: string) => {
-        console.log(e);
-});
+
 
 </script>
 

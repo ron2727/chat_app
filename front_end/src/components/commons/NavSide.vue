@@ -1,10 +1,10 @@
 <template>
     <nav>
         <ModalComponent modal-title="Create Room" :is-open="modalCreateRoomOpen" @closeModal="modalCreateRoomOpen = false">
-            <form submit.event>
-               <input-base name="title" label="Title" placeholder="Enter your title" v-model="form.title" :error="authStore.errorMessage?.errors?.title?.[0]"/>
-               <textarea-base name="description" label="Description" placeholder="Enter your description" v-model="form.description" :error="authStore.errorMessage?.errors?.description?.[0]"/>
-               <button-submit value="Create Chat Room"/>
+            <form @submit.prevent="createRoom">
+               <input-base name="title" label="Title" placeholder="Enter your title" v-model="form.title" :error="errorMessage?.errors?.title?.[0]"/>
+               <textarea-base name="description" label="Description" placeholder="Enter your description" v-model="form.description" :error="errorMessage?.errors?.description?.[0]"/>
+               <button-submit value="Create Chat Room" :loading="isLoading"/>
             </form>
         </ModalComponent>
         <div class=" relative w-60 p-5 bg-white h-full border-r border-gray-300">
@@ -41,11 +41,23 @@ import TextareaBase from '../form/TextareaBase.vue';
 import ButtonSubmit from '../form/ButtonSubmit.vue';
 
 
-import { useAuthStore } from '@/stores/userAuth';
+import { useAuthStore } from '@/stores/useAuthStore'; 
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
 
-const authStore = useAuthStore();
+const authStore = useAuthStore(); 
+const router = useRouter();
 const modalCreateRoomOpen = ref(false);
+const isLoading = ref(false);
+
+const errorMessage = ref<{
+    errors: {
+        title: string[],
+        description: string[]
+    }
+} | null>(null); 
+
 const form = ref<{
     title: string,
     description: string
@@ -53,6 +65,33 @@ const form = ref<{
     title: '',
     description: ''
 })
-</script>
 
-<style scoped></style>
+const createRoom = async(): Promise<void> => {
+   isLoading.value = true;
+   try {
+    //    const response =
+      const response = await axios.post('/api/chat', form.value); 
+      const data : {
+          success: boolean,
+          roomId: number,
+      } = response.data;
+
+      clearForm();  
+      modalCreateRoomOpen.value = false;
+      router.push({ name: 'room', params: { id: data.roomId } });
+
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   } catch (error: any) {
+       errorMessage.value = error.response?.data;
+       console.log(errorMessage.value);
+   } finally {
+       isLoading.value = false;
+   } 
+}
+
+const clearForm = (): void => {
+    form.value.title = ''; 
+    form.value.description = ''; 
+}
+</script>
+ 

@@ -15,6 +15,9 @@
                 error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
                ]">
        </textarea>
+       <p v-if="error" class="mt-1 text-sm text-red-500">
+            {{ error }}
+        </p>
     </div>
 </template>
 
@@ -35,9 +38,7 @@ const model = defineModel<string>();
 const textarea = useTemplateRef<HTMLTextAreaElement | null>('textarea');
 
 
-const autoResize = () => {   
-    console.log(textarea.value!.scrollHeight);
-
+const autoResize = () => {    
     if (textarea.value!.scrollHeight <= 272) {  
         textarea.value!.style.height = (textarea.value!.scrollHeight + 2) + 'px'; 
     }
