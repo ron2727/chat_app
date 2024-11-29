@@ -9,7 +9,7 @@
                 <span class=" text-xs font-semibold">23</span>
             </div>
         </div>
-        <router-link :to="{ name: 'room', params: { id: room.id } }" class=" absolute top-0 right-0 m-3 px-2 py-1 bg-sky-600 text-xs text-gray-200 rounded-md hover:bg-sky-700">Join</router-link> 
+        <router-link :to="{ name: 'room', params: { id: room.id, title: room.title } }" class=" absolute top-0 right-0 m-3 px-2 py-1 bg-sky-600 text-xs text-gray-200 rounded-md hover:bg-sky-700">Join</router-link> 
     </div>
 </template>
 

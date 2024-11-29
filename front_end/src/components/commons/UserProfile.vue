@@ -4,7 +4,7 @@
               class="flex justify-center items-center text-gray-200 bg-sky-600 rounded-full">
             {{ props.userName[0].toUpperCase() }}
         </div>
-        <span :class="{ 'text-xs': size === 'xs'}" class=" ml-2 font-semibold text-gray-700">{{userName}}</span>
+        <span v-if="showUserName" :class="{ 'text-xs': size === 'xs'}" class=" ml-2 font-semibold text-gray-700">{{userName}}</span>
     </div>
 </template>
 
@@ -18,6 +18,10 @@ const props = defineProps({
     userName: {
         type: String,
         required: true
+    },
+    showUserName: {
+        type: Boolean,
+        default: true
     }
 })
 </script> 

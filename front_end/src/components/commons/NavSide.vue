@@ -70,6 +70,7 @@ const createRoom = async(): Promise<void> => {
    isLoading.value = true;
    try {
     //    const response =
+      const title : string = form.value.title;
       const response = await axios.post('/api/chat', form.value); 
       const data : {
           success: boolean,
@@ -78,7 +79,7 @@ const createRoom = async(): Promise<void> => {
 
       clearForm();  
       modalCreateRoomOpen.value = false;
-      router.push({ name: 'room', params: { id: data.roomId } });
+      router.push({ name: 'room', params: { id: data.roomId, title: title } });
 
    // eslint-disable-next-line @typescript-eslint/no-explicit-any
    } catch (error: any) {

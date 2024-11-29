@@ -1,11 +1,11 @@
 <template>
-  <Teleport to="body">
-    <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
-      @click="$emit('closeModal')">
+  <Teleport to="body" v-if="isOpen">
+    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+      @click="closeModal">
       <div class="bg-white rounded-lg shadow-lg p-6 max-w-lg w-full" @click.stop>
         <div class="flex justify-between items-center">
           <h2 class="text-xl font-semibold">{{ modalTitle }}</h2>
-          <button @click="$emit('closeModal')" class="text-gray-500 hover:text-gray-700">
+          <button @click="closeModal" class="text-gray-500 hover:text-gray-700">
             <xmark-icon class="size-6" />
           </button>
         </div>
@@ -21,6 +21,8 @@
 import { defineProps } from 'vue';
 import XmarkIcon from '../icons/XmarkIcon.vue';
 
+const emit = defineEmits(['closeModal']);
+
 defineProps({
   modalTitle: {
     type: String,
@@ -32,4 +34,7 @@ defineProps({
   },
 });
 
+const closeModal = () => {
+  emit('closeModal');
+};
 </script>
