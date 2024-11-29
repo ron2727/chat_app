@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import CardRoom from '@/components/icons/CardRoom.vue';
+import CardRoom from '@/components/commons/CardRoom.vue';
 import { useChatRoomStore } from '@/stores/useChatRoomStore';
 import type { ChatRoom } from '@/interfaces/ChatRoom';
 import NoDataMessage from '@/components/commons/NoDataMessage.vue';
@@ -17,8 +17,8 @@ const chatRoomStore = useChatRoomStore();
 
 window.Echo.channel(`chat-room`)
            .listen('.room.created', (e: ChatRoom) => {
-                const isThereNewRooom : boolean = chatRoomStore.addChatRoom(e);
-                if (isThereNewRooom) {
+                const isTheresNewRooom : boolean = chatRoomStore.addChatRoom(e);
+                if (isTheresNewRooom) {
                     console.log(chatRoomStore.chatRooms);
                 } 
            });

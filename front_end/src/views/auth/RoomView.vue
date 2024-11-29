@@ -62,6 +62,11 @@ const usersInThisRoom = ref<User[]>([]);
 const roomChatMessages = ref<ChatMessage[]>([]);
 const isMessageSending = ref(false);
 const messageListWrapper = ref<HTMLElement | null>(null);
+
+onBeforeRouteLeave(() => {
+    window.Echo.leave(`room.${route.params.id}`);
+});
+
 const autoResize = (): void => {  
     if (textarea.value!.scrollHeight <= 136) { 
         textarea.value!.style.height = 'min';
@@ -122,8 +127,6 @@ window.Echo.join(`room.${route.params.id}`)
        await addNewMessage(message);
     }); 
 
-onBeforeRouteLeave(() => {
-    window.Echo.leave(`room.${route.params.id}`);
-});
+
 
 </script> 
