@@ -5,14 +5,18 @@
        </div>
        <div class="wrapper flex-grow flex">
          <div class=" flex-grow flex flex-col">
-            <div ref="messageListWrapper" class="message-list p-5 flex-grow basis-0 overflow-y-auto space-y-3 break-words">
+            <div ref="messageListWrapper" class="message-list p-5 flex-grow basis-0 overflow-y-auto space-y-1 break-words">
                <message-list v-for="message in roomChatMessages" :key="message.id" :message="message"/> 
-                <div v-if="isMessageSending" class="loaded-message text-right text-xs px-5 pb-2">
-                  sending...
+                <div v-if="isMessageSending" class="loaded-message flex justify-end text-xs px-5 pb-2">
+                  <SpinnerIcon class="animate-spin size-3 text-sky-600" />
+                </div>
+                <div v-if="isMessageSentSuccessfully" class=" text-gray-600 text-xs text-end px-5 pb-2">
+                   Sent
                 </div>
             </div>
             <div class="w-full bg-white border-t border-t-gray-300">
                <form @submit.prevent="sendMessage" class="flex items-center p-5 space-x-2"> 
+                    <EmojiPicker @select="form.message += $event"/>
                     <textarea ref="textarea" 
                               @input="autoResize()" 
                               v-model="form.message"
@@ -40,13 +44,16 @@
 <script setup lang="ts">
 import MessageList from '@/components/commons/MessageList.vue';
 import UserProfile from '@/components/commons/UserProfile.vue';
-import PaperAirplane from '@/components/icons/PaperAirplane.vue';
+import PaperAirplane from '@/components/icons/PaperAirplane.vue'; 
+import EmojiPicker from '@/components/commons/EmojiPicker.vue';
+import SpinnerIcon from '@/components/icons/SpinnerIcon.vue';
 import { nextTick, ref, useTemplateRef } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
-import axios from 'axios';
 import type { User } from '@/interfaces/User';
 import type { ChatMessage } from '@/interfaces/ChatMessage';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { generateUniqueId } from '@/utils/generateUniqueId';
+import axios from 'axios';
 
 const userAuth = useAuthStore();
 const route = useRoute();
@@ -62,6 +69,7 @@ const usersInThisRoom = ref<User[]>([]);
 const roomChatMessages = ref<ChatMessage[]>([]);
 const isMessageSending = ref(false);
 const messageListWrapper = ref<HTMLElement | null>(null);
+const isMessageSentSuccessfully = ref(false);
 
 onBeforeRouteLeave(() => {
     window.Echo.leave(`room.${route.params.id}`);
@@ -79,22 +87,21 @@ const autoResize = (): void => {
 };
 
 const sendMessage = async(): Promise<void> => {
-    isMessageSending.value = true;
-    try {
-      const response = await axios.post(`/api/chat/room`, form.value);
-      const userMessage : ChatMessage = {
-        id: response.data.id,
-        message: form.value!.message,  
+     isMessageSending.value = true;
+     const chatId : string = generateUniqueId();
+     const userMessage : ChatMessage = {
+        id: chatId,
+        message: form.value.message,  
         user: userAuth.user, 
-      }  
-      await addNewMessage(userMessage);
+     }  
+    await addNewMessage(userMessage);
+    try {
+      const response = await axios.post(`/api/chat/room`, form.value); 
       console.log(response.data);
       form.value!.message = '';
     } catch (error: unknown) {
       console.log(error);
-    } finally {
-      isMessageSending.value = false;
-    }
+    }  
 }
 
 
@@ -108,6 +115,13 @@ const addNewMessage = async(message: ChatMessage): Promise<void> => {
         roomChatMessages.value.push(message);
       }
       await scrollToBottom();
+}
+
+const alertMessageHasBeenSent = () => {
+      isMessageSentSuccessfully.value = true;
+      setTimeout(() => {
+        isMessageSentSuccessfully.value = false;
+      }, 2000)
 }
 //Echo
 window.Echo.join(`room.${route.params.id}`)
@@ -124,7 +138,13 @@ window.Echo.join(`room.${route.params.id}`)
       console.log(`Someone leave ${user}`);
     }) 
     .listen('.chat.message', async(message: ChatMessage): Promise<void> => {
-       await addNewMessage(message);
+       if (message.user.id === userAuth.user.id) {
+          isMessageSending.value = false;
+          alertMessageHasBeenSent();
+       } 
+       if (message.user.id !== userAuth.user.id) {
+          await addNewMessage(message);
+       } 
     }); 
 
 

@@ -1,7 +1,7 @@
 import type { User } from "./User";
 
 export interface ChatMessage{ 
-    id: number;
+    id: string;
     message: string; 
     user: User
 }
