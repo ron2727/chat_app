@@ -42,8 +42,7 @@ onMounted(() => {
 })
 
 const registerSubmit = async(): Promise<void> => {
-    await authStore.register(form.value); 
-    console.log(authStore.errorMessage); 
+    await authStore.register(form.value);  
 }
 
 </script>

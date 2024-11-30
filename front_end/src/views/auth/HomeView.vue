@@ -17,10 +17,7 @@ const chatRoomStore = useChatRoomStore();
 
 window.Echo.channel(`chat-room`)
            .listen('.room.created', (e: ChatRoom) => {
-                const isTheresNewRooom : boolean = chatRoomStore.addChatRoom(e);
-                if (isTheresNewRooom) {
-                    console.log(chatRoomStore.chatRooms);
-                } 
+                chatRoomStore.addChatRoom(e); 
            });
 </script>
  

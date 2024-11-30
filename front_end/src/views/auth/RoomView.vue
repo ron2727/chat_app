@@ -96,8 +96,7 @@ const sendMessage = async(): Promise<void> => {
      }  
     await addNewMessage(userMessage);
     try {
-      const response = await axios.post(`/api/chat/room`, form.value); 
-      console.log(response.data);
+      await axios.post(`/api/chat/room`, form.value);  
       form.value!.message = '';
     } catch (error: unknown) {
       console.log(error);
@@ -126,16 +125,13 @@ const alertMessageHasBeenSent = () => {
 //Echo
 window.Echo.join(`room.${route.params.id}`)
     .here((users: User[]): void => { 
-      usersInThisRoom.value = users;
-      console.log(users); 
+      usersInThisRoom.value = users; 
     })
     .joining((user: User): void => { 
-      usersInThisRoom.value.push(user);
-      console.log(`Someone join ${user}`);
+      usersInThisRoom.value.push(user); 
     })
     .leaving((user: User): void => { 
-      usersInThisRoom.value = usersInThisRoom.value.filter(u => u.id !== user.id);
-      console.log(`Someone leave ${user}`);
+      usersInThisRoom.value = usersInThisRoom.value.filter(u => u.id !== user.id); 
     }) 
     .listen('.chat.message', async(message: ChatMessage): Promise<void> => {
        if (message.user.id === userAuth.user.id) {

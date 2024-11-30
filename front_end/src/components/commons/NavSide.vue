@@ -68,8 +68,7 @@ const form = ref<{
 
 const createRoom = async(): Promise<void> => {
    isLoading.value = true;
-   try {
-    //    const response =
+   try { 
       const title : string = form.value.title;
       const response = await axios.post('/api/chat', form.value); 
       const data : {

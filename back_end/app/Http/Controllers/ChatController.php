@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Events\NewRoom;
 use App\Http\Requests\ChatRoomRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    public function createChatRoom(ChatRoomRequest $payload)
+    public function createChatRoom(ChatRoomRequest $payload) : JsonResponse
     {
         $roomId = uniqid();
         $validated = $payload->safe();
